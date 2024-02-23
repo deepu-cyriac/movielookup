@@ -16,6 +16,7 @@ const App = () => {
         <Stack.Screen
           name="MovieList"
           component={MovieListScreen}
+          // initialParams={{moption: 'movie'}}
           // options={{title: 'Movie lookup'}}
         />
         <Stack.Screen

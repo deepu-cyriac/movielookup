@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 
 import MovieListIcon from '../../components/MovieListIcon/MovieListIcon';
 import TopBar from '../../components/TopBar/TopBar';
@@ -35,31 +42,42 @@ const styles = StyleSheet.create({
 });
 
 const MovieListScreen = ({navigation}) => {
+  const [option, setOption] = useState('movie');
   const [movieData, setMovieData] = useState({});
   const [pageNo, setPageNo] = useState(1);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNo}&sort_by=popularity.desc`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYWYyNTk0MzhlZjk3MTZmNzI0NmRhMTQyZWExNmFkNyIsInN1YiI6IjY1ZDgxZjk5MTQ5NTY1MDE3YmY1ODA3ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SwI18aSG4Z1ZlAs3mBPr5EhvhnCrP7Pf3nUC6RZXoKE',
-        },
+    const urls = {
+      movie: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNo}&sort_by=popularity.desc`,
+      popular: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${pageNo}`,
+      toprated: `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNo}`,
+      upcoming: `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${pageNo}`,
+    };
+    setLoading(true);
+    fetch(urls[option], {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYWYyNTk0MzhlZjk3MTZmNzI0NmRhMTQyZWExNmFkNyIsInN1YiI6IjY1ZDgxZjk5MTQ5NTY1MDE3YmY1ODA3ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SwI18aSG4Z1ZlAs3mBPr5EhvhnCrP7Pf3nUC6RZXoKE',
       },
-    )
+    })
       .then(response => response.json())
       .then(json => {
         setMovieData(json);
       })
-      .catch(err => console.error(err));
-  }, [pageNo]);
+      .catch(err => console.error(err))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [pageNo, option]);
 
-  return (
+  return loading ? (
+    <ActivityIndicator size="small" />
+  ) : (
     <View style={styles.container}>
-      <TopBar />
+      <TopBar nav={setOption} />
       <Text>Trending now!</Text>
       <FlatList
         data={movieData?.results}
