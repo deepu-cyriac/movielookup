@@ -29,12 +29,12 @@ const MovieListIcon = props => {
   return (
     <TouchableOpacity
       onPress={() => {
-        props.nav.navigate('MovieDetail', {id: props.details.id});
+        props.nav.navigate('MovieDetail', {id: props?.details?.id});
       }}>
       <View style={styles.container}>
         <Image
           source={{
-            uri: `https://image.tmdb.org/t/p/original${props.details.poster_path}`,
+            uri: `https://image.tmdb.org/t/p/original${props?.details?.poster_path}`,
             method: 'POST',
             headers: {
               Pragma: 'no-cache',
@@ -42,7 +42,7 @@ const MovieListIcon = props => {
           }}
           style={styles.image}
         />
-        <Text style={styles.title}>{props.details.title}</Text>
+        <Text style={styles.title}>{props?.details?.title}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -62,7 +62,7 @@ const MovieListScreen = ({navigation}) => {
       <TopBar />
       <Text>Trending now!</Text>
       <FlatList
-        data={movieData.results}
+        data={movieData?.results}
         renderItem={({item}) => (
           <MovieListIcon details={item} nav={navigation} />
         )}

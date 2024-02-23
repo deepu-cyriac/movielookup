@@ -48,10 +48,10 @@ const MovieDetailScreen = ({navigation, route}) => {
   console.log(movieDetails);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{movieDetails.title}</Text>
+      <Text style={styles.title}>{movieDetails?.title}</Text>
       <Image
         source={{
-          uri: `https://image.tmdb.org/t/p/original${movieDetails.poster_path}`,
+          uri: `https://image.tmdb.org/t/p/original${movieDetails?.poster_path}`,
           method: 'POST',
           headers: {
             Pragma: 'no-cache',
@@ -62,7 +62,7 @@ const MovieDetailScreen = ({navigation, route}) => {
       <Text style={styles.overview}>
         {'\n'}
         Overview{'\n\n'}
-        {movieDetails.overview}
+        {movieDetails?.overview}
       </Text>
       <MovieDetailsView data={movieDetails} />
     </View>

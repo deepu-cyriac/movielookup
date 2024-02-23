@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,14 +12,14 @@ const styles = StyleSheet.create({
 });
 
 const MovieDetailsView = props => {
-  const data = props.data;
+  const data = props?.data;
   return (
     <View style={styles.container}>
-      <Text style={styles.textcolor}>Status: {data.status}</Text>
-      <Text style={styles.textcolor}>Release date: {data.release_date}</Text>
-      <Text style={styles.textcolor}>Runtime: {data.runtime} min</Text>
-      <Text style={styles.textcolor}>Budget: {data.budget}$</Text>
-      <Text style={styles.textcolor}>Revenue: {data.revenue}$</Text>
+      <Text style={styles.textcolor}>Status: {data?.status}</Text>
+      <Text style={styles.textcolor}>Release date: {data?.release_date}</Text>
+      <Text style={styles.textcolor}>Runtime: {data?.runtime} min</Text>
+      <Text style={styles.textcolor}>Budget: {data?.budget}$</Text>
+      <Text style={styles.textcolor}>Revenue: {data?.revenue}$</Text>
       {/* <FlatList
         data={data.production_companies}
         renderItem={({item}) => {
