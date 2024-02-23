@@ -9,16 +9,21 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginBottom: 10,
     alignItems: 'center',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+    backgroundColor: 'black',
   },
   image: {
     width: 300,
     height: 300,
     borderRadius: 10,
+  },
+  title: {
+    color: 'white',
+    fontSize: 20,
+    paddingBottom: 10,
+  },
+  overview: {
+    color: 'white',
+    fontSize: 15,
   },
 });
 
@@ -44,7 +49,7 @@ const MovieDetailScreen = ({navigation, route}) => {
   console.log(movieDetails);
   return (
     <View style={styles.container}>
-      <Text>{movieDetails.title}</Text>
+      <Text style={styles.title}>{movieDetails.title}</Text>
       <Image
         source={{
           uri: `https://image.tmdb.org/t/p/original${movieDetails.poster_path}`,
@@ -55,7 +60,7 @@ const MovieDetailScreen = ({navigation, route}) => {
         }}
         style={styles.image}
       />
-      <Text>{movieDetails.overview}</Text>
+      <Text style={styles.overview}>{movieDetails.overview}</Text>
     </View>
   );
 };

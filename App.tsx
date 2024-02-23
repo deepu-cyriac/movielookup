@@ -10,8 +10,16 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="MovieList" component={MovieListScreen} />
-        <Stack.Screen name="MovieDetail" component={MovieDetailScreen} />
+        <Stack.Screen
+          name="MovieList"
+          component={MovieListScreen}
+          options={{title: 'Movie lookup'}}
+        />
+        <Stack.Screen
+          name="MovieDetail"
+          component={MovieDetailScreen}
+          options={{title: 'Movie lookup'}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
