@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, ActivityIndicator} from 'react-native';
 
 import MovieDetailsView from '../../components/MovieDetailsView/MovieDetailsView';
 
@@ -28,7 +28,9 @@ const styles = StyleSheet.create({
 
 const MovieDetailScreen = ({navigation, route}) => {
   const [movieDetails, setMovieDetails] = useState({});
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     fetch(`https://api.themoviedb.org/3/movie/${route.params.id}`, {
       method: 'GET',
       headers: {
@@ -42,11 +44,15 @@ const MovieDetailScreen = ({navigation, route}) => {
       .then(json => {
         setMovieDetails(json);
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
+      .finally(() => {
+        setLoading(false);
+      });
   }, [route.params.id]);
 
-  console.log(movieDetails);
-  return (
+  return loading ? (
+    <ActivityIndicator size="small" />
+  ) : (
     <View style={styles.container}>
       <Text style={styles.title}>{movieDetails?.title}</Text>
       <Image
