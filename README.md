@@ -9,3 +9,4 @@ Development setup:
 4.npm run android or npm run ios
 
 App information:
+"react-native": 0.73.4
