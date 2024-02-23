@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 const TopBar = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Find that movie!</Text>
+      <Text style={styles.title}>Movie lookup</Text>
     </View>
   );
 };

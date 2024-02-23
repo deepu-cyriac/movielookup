@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 25,
+    marginBottom: 22,
+    paddingBottom: 5,
   },
   pagebutton: {
     backgroundColor: 'black',

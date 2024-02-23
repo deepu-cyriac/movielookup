@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 
+import MovieDetailsView from '../../components/MovieDetailsView/MovieDetailsView';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
     alignItems: 'center',
     backgroundColor: 'black',
   },
@@ -60,7 +59,12 @@ const MovieDetailScreen = ({navigation, route}) => {
         }}
         style={styles.image}
       />
-      <Text style={styles.overview}>{movieDetails.overview}</Text>
+      <Text style={styles.overview}>
+        {'\n'}
+        Overview{'\n\n'}
+        {movieDetails.overview}
+      </Text>
+      <MovieDetailsView data={movieDetails} />
     </View>
   );
 };
