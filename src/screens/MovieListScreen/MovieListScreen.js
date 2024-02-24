@@ -50,11 +50,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderRadius: 5,
     paddingBottom: 0,
-    margin: 1,
+    marginLeft: 1,
+    marginRight: 25,
+    marginBottom: 1,
   },
   touchop: {
     width: 150,
     height: 50,
+  },
+  textcolor: {
+    color: 'white',
+    fontSize: 20,
   },
 });
 
@@ -105,6 +111,11 @@ const MovieListScreen = ({navigation}) => {
     <View style={styles.container}>
       <TopBar nav={setOption} />
       <SearchBar setsearch={setSearchTerm} option={setOption} />
+      {movieData?.results.length === 0 ? (
+        <Text style={styles.textcolor}>No results found</Text>
+      ) : (
+        <></>
+      )}
       <FlatList
         data={movieData?.results}
         renderItem={({item}) => (
