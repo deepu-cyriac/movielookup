@@ -1,5 +1,8 @@
-#movielookup
 
+![image](https://github.com/deepu-cyriac/movielookup/assets/44795952/38e79bf9-847a-4e73-8d6e-db0819b34cd7)
+![image](https://github.com/deepu-cyriac/movielookup/assets/44795952/96660828-f940-4aae-9364-06da7da6e6fc)
+
+#movielookup
 Movielookup is a React Native application designed to provide its users the information about latest movies.
 
 App information:
