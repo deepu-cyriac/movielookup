@@ -111,7 +111,7 @@ const MovieListScreen = ({navigation}) => {
     <View style={styles.container}>
       <TopBar nav={setOption} />
       <SearchBar setsearch={setSearchTerm} option={setOption} />
-      {movieData?.results.length === 0 ? (
+      {movieData?.total_results === 0 ? (
         <Text style={styles.textcolor}>No results found</Text>
       ) : (
         <></>

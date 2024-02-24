@@ -12,10 +12,10 @@ const SearchBar = props => {
   return (
     <View style={styles.container}>
       <TextInput
-        style={styles.search}
         onChangeText={onChangeText}
         value={changeText}
         placeholder="Search"
+        placeholderTextColor="#000000"
       />
       <Button
         title="Go"
