@@ -2,8 +2,19 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, Image, StyleSheet, ActivityIndicator} from 'react-native';
 
 import MovieDetailsView from '../../components/MovieDetailsView/MovieDetailsView';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
+  },
+  spinner: {
+    flex: 1,
+    alignSelf: 'center',
+  },
   container: {
     flex: 1,
     padding: 10,
@@ -44,14 +55,20 @@ const MovieDetailScreen = ({navigation, route}) => {
       .then(json => {
         setMovieDetails(json);
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err);
+      })
       .finally(() => {
         setLoading(false);
       });
   }, [route.params.id]);
 
   return loading ? (
-    <ActivityIndicator size="small" />
+    <View style={styles.loading}>
+      <ActivityIndicator size="large" style={styles.spinner} />
+    </View>
+  ) : movieDetails?.success === false ? (
+    <ErrorMessage />
   ) : (
     <View style={styles.container}>
       <Text style={styles.title}>{movieDetails?.title}</Text>

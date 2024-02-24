@@ -10,8 +10,20 @@ import {
 
 import MovieListIcon from '../../components/MovieListIcon/MovieListIcon';
 import TopBar from '../../components/TopBar/TopBar';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
+  },
+  spinner: {
+    flex: 1,
+    alignSelf: 'center',
+  },
   container: {
     flex: 1,
     paddingTop: 22,
@@ -26,18 +38,23 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 22,
     paddingBottom: 5,
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: '15%',
   },
   pagebutton: {
     backgroundColor: 'black',
     color: 'white',
     textAlign: 'center',
     fontSize: 20,
+    borderRadius: 5,
+    paddingBottom: 0,
+    margin: 1,
   },
   touchop: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 50,
   },
 });
 
@@ -46,12 +63,15 @@ const MovieListScreen = ({navigation}) => {
   const [movieData, setMovieData] = useState({});
   const [pageNo, setPageNo] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  console.log(searchTerm);
   useEffect(() => {
     const urls = {
       movie: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNo}&sort_by=popularity.desc`,
       popular: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${pageNo}`,
       toprated: `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNo}`,
       upcoming: `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${pageNo}`,
+      search: `https://api.themoviedb.org/3/search/movie?query=${searchTerm}&include_adult=false&language=en-US&page=1`,
     };
     setLoading(true);
     fetch(urls[option], {
@@ -67,18 +87,24 @@ const MovieListScreen = ({navigation}) => {
       .then(json => {
         setMovieData(json);
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err);
+      })
       .finally(() => {
         setLoading(false);
       });
-  }, [pageNo, option]);
+  }, [pageNo, option, searchTerm]);
 
   return loading ? (
-    <ActivityIndicator size="small" />
+    <View style={styles.loading}>
+      <ActivityIndicator size="large" style={styles.spinner} />
+    </View>
+  ) : movieData?.success === false ? (
+    <ErrorMessage />
   ) : (
     <View style={styles.container}>
       <TopBar nav={setOption} />
-      <Text>Trending now!</Text>
+      <SearchBar setsearch={setSearchTerm} option={setOption} />
       <FlatList
         data={movieData?.results}
         renderItem={({item}) => (
